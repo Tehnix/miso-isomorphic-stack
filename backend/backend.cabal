@@ -1,0 +1,43 @@
+name:                backend
+version:             0.1.0.1
+license:             BSD3
+license-file:        LICENSE
+author:              Christian Kjaer Laustsen
+maintainer:          ckl@codetalk.io
+build-type:          Simple
+extra-source-files:  ChangeLog.md
+cabal-version:       >=1.24
+
+
+executable backend
+  main-is:             Main.hs
+  build-depends:       base
+                     , common
+                     , miso
+                     , text
+                     , servant
+                     , servant-server
+                     , servant-lucid
+                     , warp
+                     , wai
+                     , wai-extra
+                     , wai-logger
+                     , wai-cors
+                     , aeson
+                     , lens
+                     , containers
+                     , http-types
+                     , lucid
+                     , mtl
+                     , network-uri
+  hs-source-dirs:      src
+  default-extensions:  GADTs
+                       LambdaCase
+                       OverloadedStrings
+                       RecursiveDo
+                       ScopedTypeVariables
+                       DataKinds
+                       TypeOperators
+                       TypeApplications
+  default-language:    Haskell2010
+  ghc-options: -threaded -dynamic

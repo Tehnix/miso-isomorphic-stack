@@ -1,0 +1,8 @@
+resolver: lts-10.10
+packages:
+- '.'
+- ../common
+
+extra-deps:
+  - miso-0.13.0.0
+  - aeson-1.1.1.0

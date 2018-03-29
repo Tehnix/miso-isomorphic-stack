@@ -1,0 +1,31 @@
+name:                common
+version:             0.1.0.0
+license:             BSD3
+license-file:        LICENSE
+author:              Christian Kjaer Laustsen
+maintainer:          ckl@codetalk.io
+build-type:          Simple
+extra-source-files:  ChangeLog.md
+cabal-version:       >=1.24
+
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Common.Common
+  build-depends:       base
+                     , miso
+                     , aeson
+                     , lens
+                     , containers
+                     , network-uri
+                     , servant
+  default-extensions:  GADTs
+                       LambdaCase
+                       OverloadedStrings
+                       RecursiveDo
+                       ScopedTypeVariables
+                       DataKinds
+                       TypeOperators
+                       TypeApplications
+                       TemplateHaskell
+  default-language:    Haskell2010
