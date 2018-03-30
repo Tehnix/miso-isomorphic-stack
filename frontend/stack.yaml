@@ -4,7 +4,7 @@ packages:
 - ../common
 
 extra-deps:
-  - miso-0.13.0.0
+  - miso-0.17.0.0
 allow-newer: true
 
 compiler: ghcjs-0.2.1.9008011_ghc-8.0.2

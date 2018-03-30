@@ -14,16 +14,13 @@ import Miso ( View, App(..) )
 import qualified Miso.String as Miso
 
 main :: IO ()
-main = do
-  currentURI <- Miso.getCurrentURI
-
-  Miso.miso App
+main = Miso.miso $ \currentURI -> App
     { initialAction = Common.NoOp
     , model         = Common.initialModel currentURI
     , update        = Miso.fromTransition . updateModel
     , view          = Common.viewModel
     , events        = Miso.defaultEvents
-    , subs          = [ Miso.uriSub Common.HandleURIChange ]
+    , subs          = [ Miso.uriSub Common.HandleURI ]
     , mountPoint    = Nothing
     }
 
@@ -39,4 +36,4 @@ updateModel action =
         Miso.scheduleIO $ do
           Miso.pushURI uri
           pure Common.NoOp
-      Common.HandleURIChange uri -> Common.uri .= uri
+      Common.HandleURI uri -> Common.uri .= uri
