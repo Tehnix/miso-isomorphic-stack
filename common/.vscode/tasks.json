@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    //--------------------- Test Tasks -----------------------------
+    {
+      // Test the common/shared code.
+      "label": "Test Common",
+      "type": "shell",
+      "command": "(cd .. && stack --stack-yaml=common/stack.yaml test --fast)"
+    },
+    //--------------------- Watcher Tasks --------------------------
+    {
+      // Retest the common/shared code on file changes.
+      "label": "Watch Test Common",
+      "type": "shell",
+      "command":
+        "(cd .. && stack --stack-yaml=common/stack.yaml test --fast --haddock-deps --file-watch)",
+      "isBackground": true
+    }
+  ]
+}

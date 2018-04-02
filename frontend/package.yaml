@@ -1,0 +1,37 @@
+name: frontend
+version: '0.1.0.0'
+author: Christian Kjaer Laustsen
+maintainer: ckl@codetalk.io
+license: BSD3
+
+extra-source-files:
+- ChangeLog.md
+
+default-extensions:
+- GADTs
+- LambdaCase
+- OverloadedStrings
+- RecursiveDo
+- ScopedTypeVariables
+- DataKinds
+- TypeOperators
+
+ghc-options:
+- -O2
+- -threaded
+- -Wall
+
+dependencies:
+- base
+- common
+- miso
+- aeson
+- lens
+- containers
+- network-uri
+- servant
+
+executables:
+  frontend:
+    main: Main.hs
+    source-dirs: src

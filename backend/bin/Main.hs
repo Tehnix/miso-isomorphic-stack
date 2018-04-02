@@ -6,7 +6,7 @@ import qualified Network.Wai.Middleware.Gzip as Wai
 import qualified Network.Wai.Middleware.RequestLogger as Wai
 import qualified System.IO as IO
 
-import App (app)
+import Backend.App (app)
 
 main :: IO ()
 main = do

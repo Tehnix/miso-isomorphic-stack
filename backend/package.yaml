@@ -1,0 +1,74 @@
+name: backend
+version: '0.1.0.1'
+author: Christian Kjaer Laustsen
+maintainer: ckl@codetalk.io
+license: BSD3
+extra-source-files:
+- ChangeLog.md
+
+ghc-options:
+- -threaded
+- -rtsopts
+- -with-rtsopts=-N
+- -Wall
+- -Wcompat
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wredundant-constraints
+
+dependencies:
+- base
+
+_app-default-extensions: &app-default-extensions
+  - GADTs
+  - LambdaCase
+  - OverloadedStrings
+  - RecursiveDo
+  - ScopedTypeVariables
+  - DataKinds
+  - TypeOperators
+  - TypeApplications
+
+library:
+  source-dirs: src
+  default-extensions: *app-default-extensions
+  dependencies:
+  - common
+  - miso
+  - text
+  - servant
+  - servant-server
+  - servant-lucid
+  - warp
+  - wai
+  - aeson
+  - lens
+  - containers
+  - http-types
+  - lucid
+  - mtl
+
+executables:
+  backend:
+    main: Main.hs
+    source-dirs: bin
+    default-extensions: *app-default-extensions
+    dependencies:
+    - backend
+    - warp
+    - wai
+    - wai-extra
+    - wai-logger
+    - wai-cors
+
+tests:
+  spec:
+    main: Main.hs
+    source-dirs: test
+    dependencies:
+    - backend
+    - hspec
+    - hspec-wai
+    - hspec-wai-json
+    - aeson
+    - transformers

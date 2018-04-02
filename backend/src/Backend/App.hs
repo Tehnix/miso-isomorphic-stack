@@ -1,4 +1,4 @@
-module App where
+module Backend.App where
 
 import Data.Proxy
 import qualified Lucid as L
@@ -7,17 +7,12 @@ import qualified Miso
 import Miso (View)
 import qualified Network.HTTP.Types as HTTP
 import qualified Network.Wai as Wai
-import qualified Network.Wai.Handler.Warp as Wai
-import qualified Network.Wai.Middleware.Gzip as Wai
-import qualified Network.Wai.Middleware.RequestLogger as Wai
 import qualified Servant
 import Servant ((:<|>)(..), (:>))
-import qualified System.IO as IO
 
 import qualified Common.Model as Common
 import qualified Common.Routes as Common
 import qualified Common.View as Common
-
 
 app :: Wai.Application
 app =

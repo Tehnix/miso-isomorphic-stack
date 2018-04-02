@@ -3,9 +3,20 @@ This is an expansion of the [Single page isomorphic example](https://github.com/
 
 This example focuses primarily on two things:
 
-- Using the most current version of Miso (at the time of writing, version _0.17.0_)
-- Only needing stack, instead of nix (GHCJS is full of nix, so nice with an alternative)
+- Only needing stack, instead of nix (GHCJS is full of nix, so nice with an alternative).
 - Make it play nicely with Editor tooling such as HIE.
+- Use [hpack](https://github.com/sol/hpack) to generate `.cabal` files.
+- Using the most current version of Miso (at the time of writing, version _0.18.0_).
+
+Additionally it sets up a nice development environment for [VSCode](https://code.visualstudio.com):
+- A list of recommended extensions accessible via `⌘ ⇧ p` and then typing `Extension: Show Recommended Extensions`
+- Linting, autocomplete, code hints, formatting, etc via HIE (check out [how to set it up](#setting-up-hie))
+- Step-through debugger via [phoityne](#using-the-debugger)
+- Automatically run hpack when saving `package.yaml` files via [save-and-run](https://marketplace.visualstudio.com/items?itemName=wk-j.save-and-run)
+- Several premade tasks for common things like:
+  - Building the whole project, and optionally launch the server
+  - Building individual packages
+  - Running tests, either once or on file changes
 
 For more in-depth information, I recommend checking out the [Miso isomorphic example](https://github.com/FPtje/miso-isomorphic-example), which links to some great resources.
 
@@ -39,17 +50,31 @@ Each folder has a `stack.yaml`, which tells stack how to build the code. For con
 As mentioned, the executable and JavaScript goes into the `result/` directory, with the JS in `result/static/all.js` and the exec in `result/bin/server`.
 
 #### Frontend
-The Miso frontend application, which initialises and runs the app, is located in `frontend/src/Main.hs`.
+The JavaScript gets generated from the GHCJS frontend:
+
+| Filename | Responsibility | Build Type |
+|----------|----------------|------|
+| `src/Main.hs` | The Miso frontend application, which initialises and runs the app | Executable |
 
 #### Backend
-The Servant backend application, which takes care of routing and serving resources, is located in `backend/src/App.hs`, and tests in `backend/test/Spec.hs`. Finally, the executable is made from `backend/bin/Main.hs`.
+The Servant backend application, which takes care of routing and serving resources, is located in the _backend_:
+
+| Filename | Responsibility | Build Type |
+|----------|----------------|------|
+| `bin/Main.hs` | Sets up the WAI/Warp server that runs the servant backend  | Executable |
+| `src/App.hs` | The Servant backend application, which takes care of routing and serving resources | Library |
+| `test/Main.hs` | Configures the hspec test environemnt | Test |
+| `test/Spec.hs` | Automatically finds all test files that end on `Spec.hs` | Test |
+| `test/Backend/AppSpec.hs` | Tests for `src/App.hs` (the default setup just checks that the endpoints return status code `200`) | Test |
 
 #### Common
-Finally, the main bulk of the application is found in `common/src/Common/`. In this module we have,
+Finally, the main bulk of the application is found in `common/src/Common/`. In this module we have:
 
-- `Model.hs` contains the `Model`, `initialModel` and update `Action`s.
-- `Routes.hs` sets up the links and servant routing trees.
-- `View.hs` contains all the views, and a view router (`viewModel`), which takes care of displaying the correct view, or a `page404View`.
+| Filename | Responsibility | Build Type |
+|----------|----------------|------|
+| `src/Common/Model.hs` | Contains the `Model`, `initialModel` and update `Action`s | Library |
+| `src/Common/Routes.hs` | Sets up the links and servant routing trees | Library |
+| `src/Common/View.hs` | Contains all the views, and a view router (`viewModel`), which takes care of displaying the correct view, or a `page404View` | Library |
 
 #### Project
 The _project_ folder is simply a way to get the root files into the workspace, without putting the whole root folder in the workspace. You can `cd project` and then `ln -s ../originalFile lnFile` to get your files in here.
@@ -72,23 +97,46 @@ For the _frontend_ (GHCJS) I haven't find anything really satisfying yet, so I'm
 $ stack --stack-yaml=frontend/stack.yaml build --fast --file-watch
 ```
 
-You can set this up in an external terminal, or just in VSCode's integrated terminal
+Or run the VSCode task `Watch Test Frontend` (press `F6`). You can set this up in an external terminal, or just in VSCode's integrated terminal.
 
 ### Tasks
 Instead of remembering how to [build and run](#running-the-example) and how to [build/watch](#frontend) the frontend, some default tasks are set up.
 
-- `stack-build` runs `./stack-build.sh`, accessible via the `F6` tasks menu
-- `stack-build-and-run` runs `./stack-build.sh && cd result && bin/server`, accessible via the `F6` tasks menu and `CMD + SHIFT + b`
-- `watch-frontend` runs `stack --stack-yaml=frontend/stack.yaml build --fast --file-watch`, accessible via the `F6` tasks menu
 
-They all run in the correct directory. You can configure these in `backend/.vscode/tasks.json`.
+| Name | Command | Description | Keybinding |
+|------|---------|-------------|------------|
+| `Build Project` | `./stack-build.sh` | Builds the whole project | `F6` task menu |
+| `Build Project and Launch Server` | `./stack-build.sh && cd result && bin/server` | Builds the whole project and launches the server | `⌘ ⇧ b` or `F6` task menu |
+| `Build Backend` | `stack --stack-yaml=backend/stack.yaml build --fast` | Builds the backend | `F6` task menu |
+| `Build Frontend` | `stack --stack-yaml=frontend/stack.yaml build --fast` | Builds the frontend | `F6` task menu |
+| `Watch Test Backend` | `stack --stack-yaml=backend/stack.yaml test --fast --haddock-deps --file-watch` | Runs tests for the backend on file changes | `F6` task menu |
+| `Watch Test Frontend` | `stack --stack-yaml=frontend/stack.yaml test --fast --haddock-deps --file-watch` | Runs tests for the frontend on file changes | `F6` task menu |
+| `Watch Test Common` | `stack --stack-yaml=common/stack.yaml test --fast --haddock-deps --file-watch` | Runs tests for common on file changes | `F6` task menu |
+| `Test Backend` | `stack --stack-yaml=backend/stack.yaml test --fast` | Runs tests for the backend | `F8` or `F6` task menu |
+| `Test Frontend` | `stack --stack-yaml=frontend/stack.yaml test --fast` | Runs tests for the frontend | `F6` task menu |
+| `Test Common` | `stack --stack-yaml=common/stack.yaml test --fast` | Runs tests for the frontend | `F6` task menu |
+
+They all run in the correct directory. You can configure these in `backend/.vscode/tasks.json`, `common/.vscode/tasks.json` and `frontend/.vscode/tasks.json`.
 
 ## Miscellaneuous
 
-#### Clean up File Tree Clutter
-You can filter out files in the file tree that you rarely, if ever, access. Go into `Settings -> Workspace Settings`, and uncomment the lines you want/add new lines to the `"files.exclude"` object.
+#### Setting up HIE
+The recommended way to setup HIE is to clone it down and then run `make build-copy-compiler-tool`,
+
+```bash
+$ git clone https://github.com/haskell/haskell-ide-engine.git \
+  && cd haskell-ide-engine \
+  && make build-copy-compiler-tool
+```
+
+This will, at the time of writing, install HIE for GHC 8.0.2, 8.2.1 and 8.2.2.
+
+You can then find the locations with `stack exec -- which hie`, which will make sure to pick the right `hie` executable for your project (GHC versions need to match).
 
 #### Using the Debugger
 The documentation on [phoityne](https://marketplace.visualstudio.com/items?itemName=phoityne.phoityne-vscode) is a bit sparse, but the setup here should work. It works by running `backend/test/Spec.hs`, and then follows through the code paths you activate here.
 
-You can for example try and set a breakpoint on line 25 in `common/src/Common/View.hs` and then press `F5` to initialize the debugger and then press continue (or `F5` again). You should now be at the breakpoint you just set.
+You can for example try and set a breakpoint on inside a view in `common/src/Common/View.hs` (e.g. inside `homeView`) and then press `F5` to initialize the debugger and then press continue (or `F5` again). You should now be at the breakpoint you just set.
+
+#### Clean up File Tree Clutter
+You can filter out files in the file tree that you rarely, if ever, access. Go into `Settings -> Workspace Settings`, and uncomment the lines you want/add new lines to the `"files.exclude"` object.

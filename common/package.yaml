@@ -1,0 +1,31 @@
+name: common
+version: '0.1.0.0'
+author: Christian Kjaer Laustsen
+maintainer: ckl@codetalk.io
+license: BSD3
+
+extra-source-files:
+- ChangeLog.md
+
+default-extensions:
+- GADTs
+- LambdaCase
+- OverloadedStrings
+- RecursiveDo
+- ScopedTypeVariables
+- DataKinds
+- TypeOperators
+- TypeApplications
+- TemplateHaskell
+
+dependencies:
+- base
+- miso
+- aeson
+- lens
+- containers
+- network-uri
+- servant
+
+library:
+  source-dirs: src
