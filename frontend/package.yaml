@@ -1,37 +1,45 @@
+_package-lib: !include "../package-lib.yaml"
+
 name: frontend
 version: '0.1.0.0'
-author: Christian Kjaer Laustsen
-maintainer: ckl@codetalk.io
-license: BSD3
-
+<<: *maintainer
 extra-source-files:
 - ChangeLog.md
 
-default-extensions:
-- GADTs
-- LambdaCase
-- OverloadedStrings
-- RecursiveDo
-- ScopedTypeVariables
-- DataKinds
-- TypeOperators
-
-ghc-options:
-- -O2
-- -threaded
-- -Wall
-
-dependencies:
-- base
-- common
-- miso
-- aeson
-- lens
-- containers
-- network-uri
-- servant
+default-extensions: *app-default-extensions-8-0
 
 executables:
   frontend:
     main: Main.hs
-    source-dirs: src
+    source-dirs: bin
+    ghc-options: *full-ghc-options
+    dependencies:
+    - base
+    - frontend
+    - common
+    - miso
+
+library:
+  source-dirs: src
+  ghc-options: *warn-ghc-options
+  dependencies:
+  - base
+  - common
+  - miso
+  - aeson
+  - lens
+  - containers
+  - network-uri
+  - servant
+
+tests:
+  spec:
+    main: Spec.hs
+    source-dirs: test
+    ghc-options: *full-ghc-options
+    dependencies:
+    - base
+    - frontend
+    - common
+    - hspec
+    - aeson

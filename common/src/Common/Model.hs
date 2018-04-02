@@ -1,3 +1,4 @@
+{-# LANGUAGE TemplateHaskell #-}
 module Common.Model where
 
 import Control.Lens

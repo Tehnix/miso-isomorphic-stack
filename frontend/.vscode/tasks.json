@@ -14,7 +14,8 @@
       // Test the frontend.
       "label": "Test Frontend",
       "type": "shell",
-      "command": "(cd .. && stack --stack-yaml=frontend/stack.yaml test --fast)"
+      "command":
+        "(cd .. && stack --stack-yaml=frontend/stack.yaml test frontend --fast)"
     },
     //--------------------- Watcher Tasks --------------------------
     {
@@ -22,7 +23,7 @@
       "label": "Watch Test Frontend",
       "type": "shell",
       "command":
-        "(cd .. && stack --stack-yaml=frontend/stack.yaml test --fast --haddock-deps --file-watch)",
+        "(cd .. && stack --stack-yaml=frontend/stack.yaml test frontend --fast --haddock-deps --file-watch)",
       "isBackground": true
     }
   ]

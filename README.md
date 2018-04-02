@@ -5,7 +5,7 @@ This example focuses primarily on two things:
 
 - Only needing stack, instead of nix (GHCJS is full of nix, so nice with an alternative).
 - Make it play nicely with Editor tooling such as HIE.
-- Use [hpack](https://github.com/sol/hpack) to generate `.cabal` files.
+- Use [hpack](https://github.com/sol/hpack) to generate `.cabal` files, keeping common settings in `package-lib.yaml`.
 - Using the most current version of Miso (at the time of writing, version _0.18.0_).
 
 Additionally it sets up a nice development environment for [VSCode](https://code.visualstudio.com):
@@ -110,10 +110,10 @@ Instead of remembering how to [build and run](#running-the-example) and how to [
 | `Build Backend` | `stack --stack-yaml=backend/stack.yaml build --fast` | Builds the backend | `F6` task menu |
 | `Build Frontend` | `stack --stack-yaml=frontend/stack.yaml build --fast` | Builds the frontend | `F6` task menu |
 | `Watch Test Backend` | `stack --stack-yaml=backend/stack.yaml test --fast --haddock-deps --file-watch` | Runs tests for the backend on file changes | `F6` task menu |
-| `Watch Test Frontend` | `stack --stack-yaml=frontend/stack.yaml test --fast --haddock-deps --file-watch` | Runs tests for the frontend on file changes | `F6` task menu |
+| `Watch Test Frontend` | `stack --stack-yaml=frontend/stack.yaml test frontend --fast --haddock-deps --file-watch` | Runs tests for the frontend on file changes | `F6` task menu |
 | `Watch Test Common` | `stack --stack-yaml=common/stack.yaml test --fast --haddock-deps --file-watch` | Runs tests for common on file changes | `F6` task menu |
 | `Test Backend` | `stack --stack-yaml=backend/stack.yaml test --fast` | Runs tests for the backend | `F8` or `F6` task menu |
-| `Test Frontend` | `stack --stack-yaml=frontend/stack.yaml test --fast` | Runs tests for the frontend | `F6` task menu |
+| `Test Frontend` | `stack --stack-yaml=frontend/stack.yaml test frontend --fast` | Runs tests for the frontend | `F6` task menu |
 | `Test Common` | `stack --stack-yaml=common/stack.yaml test --fast` | Runs tests for the frontend | `F6` task menu |
 
 They all run in the correct directory. You can configure these in `backend/.vscode/tasks.json`, `common/.vscode/tasks.json` and `frontend/.vscode/tasks.json`.
@@ -140,3 +140,12 @@ You can for example try and set a breakpoint on inside a view in `common/src/Com
 
 #### Clean up File Tree Clutter
 You can filter out files in the file tree that you rarely, if ever, access. Go into `Settings -> Workspace Settings`, and uncomment the lines you want/add new lines to the `"files.exclude"` object.
+
+#### Default Enabled Extensions
+By default a slew of extensions are enabled. This is mainly inspired by Alexis King's writeup [An opinionated guide to Haskell in 2018](https://lexi-lambda.github.io/blog/2018/02/10/an-opinionated-guide-to-haskell-in-2018/), which makes good arguments for enabling these.
+
+## TODO
+There's still some things that would be nice to have included here.
+
+- [ ] Database setup and some simple CRUD operations in the backend (e.g. using presistent[1](https://github.com/parsonsmatt/servant-persistent)[2](http://www.parsonsmatt.org/2016/07/08/servant-persistent_updated.html))
+- [ ] [XHR requests](https://github.com/dmjio/miso/blob/master/examples/xhr/Main.hs) in the frontend, do show how to communicate with the backend

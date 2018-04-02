@@ -1,31 +1,32 @@
+_package-lib: !include "../package-lib.yaml"
+
 name: common
 version: '0.1.0.0'
-author: Christian Kjaer Laustsen
-maintainer: ckl@codetalk.io
-license: BSD3
-
+<<: *maintainer
 extra-source-files:
 - ChangeLog.md
 
-default-extensions:
-- GADTs
-- LambdaCase
-- OverloadedStrings
-- RecursiveDo
-- ScopedTypeVariables
-- DataKinds
-- TypeOperators
-- TypeApplications
-- TemplateHaskell
-
-dependencies:
-- base
-- miso
-- aeson
-- lens
-- containers
-- network-uri
-- servant
+default-extensions: *app-default-extensions-8-0
 
 library:
   source-dirs: src
+  ghc-options: *warn-ghc-options
+  dependencies:
+  - base
+  - miso
+  - aeson
+  - lens
+  - containers
+  - network-uri
+  - servant
+
+tests:
+  spec:
+    main: Main.hs
+    source-dirs: test
+    ghc-options: *full-ghc-options
+    dependencies:
+    - base
+    - common
+    - hspec
+    - servant
