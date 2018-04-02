@@ -9,11 +9,25 @@ This example focuses primarily on two things:
 
 For more in-depth information, I recommend checking out the [Miso isomorphic example](https://github.com/FPtje/miso-isomorphic-example), which links to some great resources.
 
+
+__Get Started:__
+
+```bash
+$ ./start-build.sh
+```
+
+and optionally, if using VSCode and you want to use the [phoityne debugger](https://marketplace.visualstudio.com/items?itemName=phoityne.phoityne-vscode),
+
+```bash
+$ (cd backend && stack build phoityne-vscode) \
+  && (cd common && stack build phoityne-vscode)
+```
+
 ## Running the example
 Using stack,
 
 ```bash
-$ .stack-build.sh
+$ ./stack-build.sh
 $ cd result && bin/server
 ```
 
@@ -28,7 +42,7 @@ As mentioned, the executable and JavaScript goes into the `result/` directory, w
 The Miso frontend application, which initialises and runs the app, is located in `frontend/src/Main.hs`.
 
 #### Backend
-The Servant backend application, which takes care of routing and serving resources, is located in `backend/src/Main.hs`.
+The Servant backend application, which takes care of routing and serving resources, is located in `backend/src/App.hs`, and tests in `backend/test/Spec.hs`. Finally, the executable is made from `backend/bin/Main.hs`.
 
 #### Common
 Finally, the main bulk of the application is found in `common/src/Common/`. In this module we have,
@@ -37,6 +51,8 @@ Finally, the main bulk of the application is found in `common/src/Common/`. In t
 - `Routes.hs` sets up the links and servant routing trees.
 - `View.hs` contains all the views, and a view router (`viewModel`), which takes care of displaying the correct view, or a `page404View`.
 
+#### Project
+The _project_ folder is simply a way to get the root files into the workspace, without putting the whole root folder in the workspace. You can `cd project` and then `ln -s ../originalFile lnFile` to get your files in here.
 
 ## Development Environment
 To open the project, open the `Miso-Project.code-workspace`, which is a VSCode Workspace. This will open the three folders, _backend_, _common_ and _frontend_ as folders in the workspace, and their individual settings will then take effect (this uses VSCodes multi-root workspaces).
@@ -66,3 +82,13 @@ Instead of remembering how to [build and run](#running-the-example) and how to [
 - `watch-frontend` runs `stack --stack-yaml=frontend/stack.yaml build --fast --file-watch`, accessible via the `F6` tasks menu
 
 They all run in the correct directory. You can configure these in `backend/.vscode/tasks.json`.
+
+## Miscellaneuous
+
+#### Clean up File Tree Clutter
+You can filter out files in the file tree that you rarely, if ever, access. Go into `Settings -> Workspace Settings`, and uncomment the lines you want/add new lines to the `"files.exclude"` object.
+
+#### Using the Debugger
+The documentation on [phoityne](https://marketplace.visualstudio.com/items?itemName=phoityne.phoityne-vscode) is a bit sparse, but the setup here should work. It works by running `backend/test/Spec.hs`, and then follows through the code paths you activate here.
+
+You can for example try and set a breakpoint on line 25 in `common/src/Common/View.hs` and then press `F5` to initialize the debugger and then press continue (or `F5` again). You should now be at the breakpoint you just set.

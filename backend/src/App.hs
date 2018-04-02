@@ -1,4 +1,4 @@
-module Main where
+module App where
 
 import Data.Proxy
 import qualified Lucid as L
@@ -18,13 +18,6 @@ import qualified Common.Model as Common
 import qualified Common.Routes as Common
 import qualified Common.View as Common
 
-main :: IO ()
-main = do
-  IO.hPutStrLn IO.stderr "Running on port 3003..."
-  Wai.run 3003 $ Wai.logStdout $ compress app
-  where
-    compress :: Wai.Middleware
-    compress = Wai.gzip Wai.def {Wai.gzipFiles = Wai.GzipCompress}
 
 app :: Wai.Application
 app =

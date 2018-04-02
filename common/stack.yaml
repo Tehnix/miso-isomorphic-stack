@@ -10,3 +10,4 @@ extra-deps:
   # NOTE: We are using <0.13 because later versions bumped the Aeson dependency.
   - servant-0.12.1
   - cabal-doctest-1.0.6
+  - phoityne-vscode-0.0.22.0

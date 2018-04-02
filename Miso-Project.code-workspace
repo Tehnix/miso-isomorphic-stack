@@ -8,11 +8,24 @@
 		},
 		{
 			"path": "frontend"
+		},
+		{
+			"path": "project"
 		}
 	],
 	"settings": {
 		"editor.formatOnSave": true,
-		"editor.formatOnType": true
+		"editor.formatOnType": true,
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			// ".vscode": true,
+			// "Setup.hs": true,
+			// "LICENSE": true
+		}
 	},
 	"extensions": {
 		"recommendations": [
@@ -20,7 +33,8 @@
 			"ndmitchell.haskell-ghcid",
 			"justusadam.language-haskell",
 			"jcanero.hoogle-vscode",
-			"monofon.hindent-format"
+			"monofon.hindent-format",
+			"phoityne.phoityne-vscode"
 		]
 	}
 }
