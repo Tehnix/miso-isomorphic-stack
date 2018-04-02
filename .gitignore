@@ -20,3 +20,4 @@ cabal.project.local
 .HTF/
 result
 **/.vscode/phoityne.log
+**/.hspec-failures

@@ -1,1 +1,0 @@
-FailureReport {failureReportSeed = 215912058, failureReportMaxSuccess = 100, failureReportMaxSize = 100, failureReportMaxDiscardRatio = 10, failureReportPaths = [(["GET /"],"responds with 'Simple'")]}
