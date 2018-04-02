@@ -1,0 +1,26 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "stack-build",
+      "type": "shell",
+      "command": "(cd .. && ./stack-build.sh)"
+    },
+    {
+      "label": "stack-build-and-run",
+      "type": "shell",
+      "command": "(cd .. && ./stack-build.sh && cd result && bin/server)",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "watch-frontend",
+      "type": "shell",
+      "command":
+        "(cd .. && stack --stack-yaml=frontend/stack.yaml build --fast --file-watch)",
+      "isBackground": true
+    }
+  ]
+}

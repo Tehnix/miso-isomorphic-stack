@@ -11,7 +11,9 @@ cabal-version:       >=1.24
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Common.Common
+  exposed-modules:     Common.Routes
+                       Common.Model
+                       Common.View
   build-depends:       base
                      , miso
                      , aeson
