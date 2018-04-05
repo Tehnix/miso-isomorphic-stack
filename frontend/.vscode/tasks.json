@@ -25,6 +25,44 @@
       "command":
         "(cd .. && stack --stack-yaml=frontend/stack.yaml test frontend --fast --haddock-deps --file-watch)",
       "isBackground": true
+    },
+    {
+      // Retest the frontend on file changes.
+      "label": "Watch Build Frontend with Problem Matcher",
+      "type": "shell",
+      "command":
+        "(cd .. && stack --stack-yaml=frontend/stack.yaml build --fast --file-watch)",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "haskell",
+        "fileLocation": "absolute",
+        "pattern": [
+          {
+            // https://regex101.com/r/czYsOg/2
+            "regexp":
+              "^(    )?(\\/.*\\.hs):([0-9]*):([0-9]*): (warning|error):( \\[-W([a-zA-Z\\\\-]*)\\])?",
+            "file": 2,
+            "line": 3,
+            "column": 4,
+            "severity": 5,
+            "code": 6
+          },
+          {
+            // https://regex101.com/r/pheGQR/2
+            "regexp":
+              "^    ((?!\\/|Preprocessing|  \\/)[a-zA-Z0-9 ‘\\.’,:()\\[\\]•\\/\\-\\\"'\\x60$\\*{}]*)",
+            "message": 1,
+            "loop": true
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern":
+            "^Ignoring that the GHCJS boot package \"aeson\" has a different version, [0-9]\\.[0-9]\\.[0-9]\\.[0-9], than the resolver's wanted version, [0-9]\\.[0-9]\\.[0-9]\\.[0-9]$",
+          "endsPattern":
+            "^Type help for available commands\\. Press enter to force a rebuild\\.$"
+        }
+      }
     }
   ]
 }

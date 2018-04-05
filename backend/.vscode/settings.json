@@ -1,4 +1,6 @@
 {
-    "languageServerHaskell.useCustomHieWrapper": true,
-    "languageServerHaskell.useCustomHieWrapperPath": "${workspaceFolder}/../hie.sh"
+  "languageServerHaskell.useCustomHieWrapper": false,
+  // "languageServerHaskell.useCustomHieWrapperPath": "${workspaceFolder}/../hie.sh"
+  "languageServerHaskell.hieExecutablePath":
+    "/Users/tehnix/.stack/compiler-tools/x86_64-osx/ghc-8.2.2/bin/hie"
 }

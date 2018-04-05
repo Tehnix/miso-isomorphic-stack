@@ -22,3 +22,4 @@ result
 **/.vscode/phoityne.log
 **/.hspec-failures
 **/*.cabal
+project/test-output.log

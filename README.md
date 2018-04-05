@@ -111,6 +111,7 @@ Instead of remembering how to [build and run](#running-the-example) and how to [
 | `Build Frontend` | `stack --stack-yaml=frontend/stack.yaml build --fast` | Builds the frontend | `F6` task menu |
 | `Watch Test Backend` | `stack --stack-yaml=backend/stack.yaml test --fast --haddock-deps --file-watch` | Runs tests for the backend on file changes | `F6` task menu |
 | `Watch Test Frontend` | `stack --stack-yaml=frontend/stack.yaml test frontend --fast --haddock-deps --file-watch` | Runs tests for the frontend on file changes | `F6` task menu |
+| `Watch Build Frontend with Problem Matcher` | `stack --stack-yaml=frontend/stack.yaml build frontend --fast --file-watch` | Builds the frontend on file changes, and reports the errors at the file location they were found | `F6` task menu |
 | `Watch Test Common` | `stack --stack-yaml=common/stack.yaml test --fast --haddock-deps --file-watch` | Runs tests for common on file changes | `F6` task menu |
 | `Test Backend` | `stack --stack-yaml=backend/stack.yaml test --fast` | Runs tests for the backend | `F8` or `F6` task menu |
 | `Test Frontend` | `stack --stack-yaml=frontend/stack.yaml test frontend --fast` | Runs tests for the frontend | `F6` task menu |
