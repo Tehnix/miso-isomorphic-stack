@@ -1,5 +1,8 @@
 #!/bin/bash
 
+mkdir -p result/bin
+mkdir -p result/static
+
 # Build the frontend, and copy over the javascript.
 stack build --stack-yaml=frontend/stack.yaml \
   && cp $(stack path --stack-yaml=frontend/stack.yaml --local-install-root)/bin/frontend.jsexe/all.js result/static/all.js
