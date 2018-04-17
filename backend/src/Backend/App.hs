@@ -1,4 +1,6 @@
-module Backend.App where
+module Backend.App
+  ( app
+  ) where
 
 import Data.Proxy
 import qualified Lucid as L

@@ -1,0 +1,126 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Rebuild/Copy/Launch Everything!",
+      // "type": "shell",
+      // "command":
+      //   "(cd .. && stack --stack-yaml=backend/stack.yaml build --fast --file-watch & stack --stack-yaml=frontend/stack.yaml build --fast --file-watch & ./project/rebuild.sh & ./project/runner.sh bin/server)",
+      "dependsOn": [
+        "Relaunch Server & Copy Build Files on Change",
+        "Watch Test Backend",
+        "Watch Build Frontend with Problem Matcher"
+      ],
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Project",
+      "type": "shell",
+      "command": "(cd .. && ./stack-build.sh)",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Project and Launch Server",
+      "type": "shell",
+      "command": "(cd .. && ./stack-build.sh && cd result && bin/server)",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Relaunch Server on Change",
+      "type": "shell",
+      "command": "(cd .. && ./project/runner.sh bin/server)",
+      "presentation": {
+        "reveal": "never",
+        "panel": "dedicated"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Copy Build Files on Change",
+      "type": "shell",
+      "command": "(cd .. && ./project/rebuild.sh)",
+      "presentation": {
+        "reveal": "never",
+        "panel": "dedicated"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Relaunch Server & Copy Build Files on Change",
+      "type": "shell",
+      "command":
+        "(cd .. && ./project/rebuild.sh & ./project/runner.sh bin/server)",
+      "presentation": {
+        "reveal": "never",
+        "panel": "dedicated"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+
+    // These are moved here, to be accessible by the dependsOn of "Rebuild/Copy/Launch Everything!".
+    {
+      "label": "Watch Test Backend",
+      "type": "shell",
+      "command":
+        "(cd .. && stack --stack-yaml=backend/stack.yaml test --fast --haddock-deps --file-watch)",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      // Retest the frontend on file changes.
+      "label": "Watch Build Frontend with Problem Matcher",
+      "type": "shell",
+      "command":
+        "(cd .. && stack --stack-yaml=frontend/stack.yaml build --fast --file-watch)",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "haskell",
+        "fileLocation": "absolute",
+        "pattern": [
+          {
+            // https://regex101.com/r/czYsOg/2
+            "regexp":
+              "^(    )?(\\/.*\\.hs):([0-9]*):([0-9]*): (warning|error):( \\[-W([a-zA-Z\\\\-]*)\\])?",
+            "file": 2,
+            "line": 3,
+            "column": 4,
+            "severity": 5,
+            "code": 6
+          },
+          {
+            // https://regex101.com/r/pheGQR/3
+            "regexp":
+              "^    ((?!\\/|Preprocessing|  \\/)[a-zA-Z0-9 <|>&@~_^?%=+#‘\\.’,:()\\[\\]•\\/\\-\\\"'\\x60$\\*{}]*)",
+            "message": 1,
+            "loop": true
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern":
+            "^Ignoring that the GHCJS boot package \"aeson\" has a different version, [0-9]\\.[0-9]\\.[0-9]\\.[0-9], than the resolver's wanted version, [0-9]\\.[0-9]\\.[0-9]\\.[0-9]$",
+          "endsPattern":
+            "^Type help for available commands\\. Press enter to force a rebuild\\.$"
+        }
+      }
+    }
+  ]
+}

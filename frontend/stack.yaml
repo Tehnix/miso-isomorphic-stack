@@ -1,4 +1,4 @@
-resolver: lts-8.11
+resolver: lts-9.21
 packages:
 - '.'
 - ../common
@@ -11,11 +11,24 @@ extra-deps:
   - cabal-doctest-1.0.6
 allow-newer: true
 
-compiler: ghcjs-0.2.1.9008011_ghc-8.0.2
+compiler: ghcjs-0.2.1.9009021_ghc-8.0.2
 compiler-check: match-exact
 setup-info:
   ghcjs:
     source:
-      ghcjs-0.2.1.9008011_ghc-8.0.2:
-        url: https://github.com/matchwood/ghcjs-stack-dist/raw/master/ghcjs-0.2.1.9008011.tar.gz
-        sha1: a72a5181124baf64bcd0e68a8726e65914473b3b
+      ghcjs-0.2.1.9009021_ghc-8.0.2:
+        url: https://github.com/matchwood/ghcjs-stack-dist/raw/develop/ghcjs-0.2.1.9009021.tar.gz
+        sha1: b1740c3c99e5039ac306702894cd6e58283f4d31
+
+# To use the older compiler with lts-8.11, uncomment the following, and comment out
+# the earlier compiler setup.
+#
+# resolver: lts-8.11
+# compiler: ghcjs-0.2.1.9008011_ghc-8.0.2
+# compiler-check: match-exact
+# setup-info:
+#   ghcjs:
+#     source:
+#       ghcjs-0.2.1.9008011_ghc-8.0.2:
+#         url: https://github.com/matchwood/ghcjs-stack-dist/raw/master/ghcjs-0.2.1.9008011.tar.gz
+#         sha1: a72a5181124baf64bcd0e68a8726e65914473b3b

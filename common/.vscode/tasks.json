@@ -6,7 +6,8 @@
       // Test the common/shared code.
       "label": "Test Common",
       "type": "shell",
-      "command": "(cd .. && stack --stack-yaml=common/stack.yaml test --fast)"
+      "command": "(cd .. && stack --stack-yaml=common/stack.yaml test --fast)",
+      "problemMatcher": []
     },
     //--------------------- Watcher Tasks --------------------------
     {
@@ -15,7 +16,8 @@
       "type": "shell",
       "command":
         "(cd .. && stack --stack-yaml=common/stack.yaml test --fast --haddock-deps --file-watch)",
-      "isBackground": true
+      "isBackground": true,
+      "problemMatcher": []
     }
   ]
 }

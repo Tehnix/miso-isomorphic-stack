@@ -1,10 +1,7 @@
 module Common.Routes where
 
 import Data.Proxy (Proxy(..))
-import qualified Miso
 import Miso (View)
-import Miso.Html
-import qualified Miso.String as Miso
 import qualified Servant.API as Servant
 import Servant.API ((:<|>)(..), (:>))
 import qualified Servant.Utils.Links as Servant

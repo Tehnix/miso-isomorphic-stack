@@ -5,7 +5,7 @@ import qualified Miso
 import Miso (View)
 import Miso.Html
 import qualified Miso.String as Miso
-import Servant.API ((:<|>)(..), (:>))
+import Servant.API ((:<|>)(..))
 
 import Common.Model
 import Common.Routes

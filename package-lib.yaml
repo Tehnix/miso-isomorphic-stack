@@ -32,7 +32,6 @@
   - DeriveGeneric
   - DeriveLift
   - DeriveTraversable
-  - DerivingStrategies
   - EmptyCase
   - ExistentialQuantification
   - FlexibleContexts

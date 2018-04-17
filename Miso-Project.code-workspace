@@ -21,22 +21,12 @@
 			"**/.hg": true,
 			"**/CVS": true,
 			"**/.DS_Store": true,
-			// ".vscode": true,
-			// "Setup.hs": true,
-			// "LICENSE": true,
-			// "**/*.cabal": true,
-			// "*.cabal": true,
-			// "*.hspec-failures": true
+			".vscode": true,
+			"**/Setup.hs": true,
+			"LICENSE": true,
+			"**/*.cabal": true,
+			"**/*.hspec-failures": true
 		},
-		// "saveAndRun": {
-		// 	"commands": [
-		// 		{
-		// 			"match": "package.yaml$",
-		// 			"cmd": "(cd ${fileDirname} && stack exec hpack)",
-		// 			"useShortcut": false
-		// 		}
-		// 	]
-		// }
 	},
 	"extensions": {
 		"recommendations": [
@@ -45,8 +35,7 @@
 			"justusadam.language-haskell",
 			"jcanero.hoogle-vscode",
 			"monofon.hindent-format",
-			"phoityne.phoityne-vscode",
-			"wk-j.save-and-run"
+			"phoityne.phoityne-vscode"
 		]
 	}
 }

@@ -1,7 +1,42 @@
-# Miso Isomorphic Example using Stack
-This is an expansion of the [Single page isomorphic example](https://github.com/FPtje/miso-isomorphic-example), which is a minimal example of Miso's isomorphic features.
+Miso Isomorphic Example using Stack
+===
 
-This example focuses primarily on two things:
+This is an expansion of the [SPA isomorphic example](https://github.com/FPtje/miso-isomorphic-example), which is a minimal example of Miso's isomorphic features.
+
+__Get Started__
+
+```bash
+$ ./start-build.sh
+$ cd result && bin/server
+```
+
+That's all you need to do. The rest of this README is for a deeper dive into the development setup, code structure and more.
+
+<!-- TOC -->
+
+- [Motivation](#motivation)
+- [Running the example](#running-the-example)
+- [Code Structure](#code-structure)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
+    - [Common](#common)
+    - [Project](#project)
+- [Development Environment](#development-environment)
+    - [Without VSCode](#without-vscode)
+    - [Backend and Common](#backend-and-common)
+    - [Frontend](#frontend-1)
+  - [Tasks](#tasks)
+- [Miscellaneuous](#miscellaneuous)
+    - [Setting up HIE](#setting-up-hie)
+    - [Using the Debugger](#using-the-debugger)
+    - [Clean up File Tree Clutter](#clean-up-file-tree-clutter)
+    - [Default Enabled Extensions](#default-enabled-extensions)
+- [TODO](#todo)
+
+<!-- /TOC -->
+
+## Motivation
+This example focuses on:
 
 - Only needing stack, instead of nix (GHCJS is full of nix, so nice with an alternative).
 - Make it play nicely with Editor tooling such as HIE.
@@ -20,20 +55,6 @@ Additionally it sets up a nice development environment for [VSCode](https://code
 
 For more in-depth information, I recommend checking out the [Miso isomorphic example](https://github.com/FPtje/miso-isomorphic-example), which links to some great resources.
 
-
-__Get Started:__
-
-```bash
-$ ./start-build.sh
-```
-
-and optionally, if using VSCode and you want to use the [phoityne debugger](https://marketplace.visualstudio.com/items?itemName=phoityne.phoityne-vscode),
-
-```bash
-$ (cd backend && stack build phoityne-vscode) \
-  && (cd common && stack build phoityne-vscode)
-```
-
 ## Running the example
 Using stack,
 
@@ -43,6 +64,19 @@ $ cd result && bin/server
 ```
 
 __NOTE:__ Same as the original isomorphic example, the it expects you start the server standing in `result/`, so it knows where to find the static files, in `result/static/`.
+
+If using VSCode and you want to use the [phoityne debugger](https://marketplace.visualstudio.com/items?itemName=phoityne.phoityne-vscode),
+
+```bash
+$ (cd backend && stack build phoityne-vscode) \
+  && (cd common && stack build phoityne-vscode)
+```
+
+Additionally, you might want `fswatch`, for the `runner.sh`/`rebuild.sh` scripts,
+
+```bash
+$ brew install fswatch # alternatively, sudo apt-get install fswatch
+```
 
 ## Code Structure
 Each folder has a `stack.yaml`, which tells stack how to build the code. For convenience, you can build the whole project by using the `stack-build.sh` script, which also copies the files into the result directory.
@@ -84,6 +118,17 @@ To open the project, open the `Miso-Project.code-workspace`, which is a VSCode W
 
 __NOTE:__ Currently the focus has been on getting a nice development environment set up for VSCode out-the-box, but there is nothing stopping you from using this with other editors, since it simply uses HIE and stack for everything.
 
+#### Without VSCode
+There are four main pieces of this that I would recommend running in your terminal (each in their own),
+
+```bash
+$ stack --stack-yaml=backend/stack.yaml build --fast --file-watch
+$ stack --stack-yaml=frontend/stack.yaml build --fast --file-watch
+$ ./project/rebuild.sh & ./project/runner.sh bin/server
+```
+
+That should let you edit your files, and automatically build the backend/frontend, copy the files over and relaunch the server.
+
 #### Backend and Common
 The _backend_, along _common_, can be developed with HIE, by placing a `stack.yaml` in their respective folders. The _backend_ needs this, but for _common_ we have only put one there to make HIE work nicely with it.
 
@@ -102,11 +147,15 @@ Or run the VSCode task `Watch Test Frontend` (press `F6`). You can set this up i
 ### Tasks
 Instead of remembering how to [build and run](#running-the-example) and how to [build/watch](#frontend) the frontend, some default tasks are set up.
 
+You often just want to run `Rebuild/Copy/Launch Everything!`, which will start three separate tasks, so you don't have to do anything.
 
 | Name | Command | Description | Keybinding |
 |------|---------|-------------|------------|
-| `Build Project` | `./stack-build.sh` | Builds the whole project | `F6` task menu |
-| `Build Project and Launch Server` | `./stack-build.sh && cd result && bin/server` | Builds the whole project and launches the server | `⌘ ⇧ b` or `F6` task menu |
+| `Build Project` | `./stack-build.sh` | Builds the whole project | `⌘ ⇧ b`, `F7` or `F6` task menu |
+| `Build Project and Launch Server` | `./stack-build.sh && cd result && bin/server` | Builds the whole project and launches the server | `F6` task menu |
+| `Relaunch Server on Change` | `./project/runner.sh bin/server` | Relaunches the server, every time the result/bin/server executable changes | `F6` task menu |
+| `Copy Build Files on Change` | `./project/rebuild.sh` | Copies the build files to `result/..` every time the stack build artifacts change | `F6` task menu |
+| `Relaunch Server & Copy Build Files on Change` | `./project/rebuild.sh & ./project/runner.sh bin/server` | A combination of the relauncher and rebuilder (copier) | `F6` task menu |
 | `Build Backend` | `stack --stack-yaml=backend/stack.yaml build --fast` | Builds the backend | `F6` task menu |
 | `Build Frontend` | `stack --stack-yaml=frontend/stack.yaml build --fast` | Builds the frontend | `F6` task menu |
 | `Watch Test Backend` | `stack --stack-yaml=backend/stack.yaml test --fast --haddock-deps --file-watch` | Runs tests for the backend on file changes | `F6` task menu |

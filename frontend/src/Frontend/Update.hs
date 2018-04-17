@@ -1,6 +1,6 @@
 module Frontend.Update where
 
-import Control.Lens ((+=), (-=), (.=), makeLenses)
+import Control.Lens ((+=), (-=), (.=))
 import qualified Miso
 
 import qualified Common.Model as Common
