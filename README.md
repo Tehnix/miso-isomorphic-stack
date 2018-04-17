@@ -12,6 +12,10 @@ $ cd result && bin/server
 
 That's all you need to do. The rest of this README is for a deeper dive into the development setup, code structure and more.
 
+<a href="https://user-images.githubusercontent.com/1189998/38898963-c7f68ecc-4296-11e8-86d7-e1cf740fe101.png" target="_blank">
+  <img width="1792" alt="The backend code (left), shared code (middle) and frontend code (right)" title="The backend code (left), shared code (middle) and frontend code (right)" src="https://user-images.githubusercontent.com/1189998/38898963-c7f68ecc-4296-11e8-86d7-e1cf740fe101.png">
+</a>
+
 <!-- TOC -->
 
 - [Motivation](#motivation)
@@ -22,10 +26,10 @@ That's all you need to do. The rest of this README is for a deeper dive into the
     - [Common](#common)
     - [Project](#project)
 - [Development Environment](#development-environment)
-    - [Without VSCode](#without-vscode)
     - [Backend and Common](#backend-and-common)
     - [Frontend](#frontend-1)
   - [Tasks](#tasks)
+  - [Without VSCode](#without-vscode)
 - [Miscellaneuous](#miscellaneuous)
     - [Setting up HIE](#setting-up-hie)
     - [Using the Debugger](#using-the-debugger)
@@ -118,17 +122,6 @@ To open the project, open the `Miso-Project.code-workspace`, which is a VSCode W
 
 __NOTE:__ Currently the focus has been on getting a nice development environment set up for VSCode out-the-box, but there is nothing stopping you from using this with other editors, since it simply uses HIE and stack for everything.
 
-#### Without VSCode
-There are four main pieces of this that I would recommend running in your terminal (each in their own),
-
-```bash
-$ stack --stack-yaml=backend/stack.yaml build --fast --file-watch
-$ stack --stack-yaml=frontend/stack.yaml build --fast --file-watch
-$ ./project/rebuild.sh & ./project/runner.sh bin/server
-```
-
-That should let you edit your files, and automatically build the backend/frontend, copy the files over and relaunch the server.
-
 #### Backend and Common
 The _backend_, along _common_, can be developed with HIE, by placing a `stack.yaml` in their respective folders. The _backend_ needs this, but for _common_ we have only put one there to make HIE work nicely with it.
 
@@ -167,6 +160,17 @@ You often just want to run `Rebuild/Copy/Launch Everything!`, which will start t
 | `Test Common` | `stack --stack-yaml=common/stack.yaml test --fast` | Runs tests for the frontend | `F6` task menu |
 
 They all run in the correct directory. You can configure these in `backend/.vscode/tasks.json`, `common/.vscode/tasks.json` and `frontend/.vscode/tasks.json`.
+
+### Without VSCode
+There are four main pieces of this that I would recommend running in your terminal (each in their own),
+
+```bash
+$ stack --stack-yaml=backend/stack.yaml build --fast --file-watch
+$ stack --stack-yaml=frontend/stack.yaml build --fast --file-watch
+$ ./project/rebuild.sh & ./project/runner.sh bin/server
+```
+
+That should let you edit your files, and automatically build the backend/frontend, copy the files over and relaunch the server.
 
 ## Miscellaneuous
 
