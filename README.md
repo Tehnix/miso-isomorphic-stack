@@ -1,7 +1,7 @@
 Miso Isomorphic Example using Stack
 ===
 
-This is an expansion of the [SPA isomorphic example](https://github.com/FPtje/miso-isomorphic-example), which is a minimal example of Miso's isomorphic features.
+This is an expansion of the [SPA isomorphic example](https://github.com/FPtje/miso-isomorphic-example), which is a minimal example of [Miso](https://github.com/dmjio/miso)'s isomorphic features.
 
 __Get Started__
 
@@ -43,17 +43,16 @@ That's all you need to do. The rest of this README is for a deeper dive into the
 This example focuses on:
 
 - Only needing stack, instead of nix (GHCJS is full of nix, so nice with an alternative).
-- Make it play nicely with Editor tooling such as HIE.
+- Make it play nicely with editor tooling such as HIE.
 - Use [hpack](https://github.com/sol/hpack) to generate `.cabal` files, keeping common settings in `package-lib.yaml`.
-- Using the most current version of Miso (at the time of writing, version _0.18.0_).
+- Using the most current version of Miso (at the time of writing, version _0.19.0_).
 
-Additionally it sets up a nice development environment for [VSCode](https://code.visualstudio.com):
-- A list of recommended extensions accessible via `⌘ ⇧ p` and then typing `Extension: Show Recommended Extensions`
+Additionally it sets up a nice development environment for [VSCode](https://code.visualstudio.com) (although it [works fine without](#without-vscode)):
 - Linting, autocomplete, code hints, formatting, etc via HIE (check out [how to set it up](#setting-up-hie))
 - Step-through debugger via [phoityne](#using-the-debugger)
-- Automatically run hpack when saving `package.yaml` files via [save-and-run](https://marketplace.visualstudio.com/items?itemName=wk-j.save-and-run)
+- A list of recommended extensions accessible via `⌘ ⇧ p` and then typing `Extension: Show Recommended Extensions`
 - Several premade tasks for common things like:
-  - Building the whole project, and optionally launch the server
+  - Automatially building the whole project on changes, relaunching the server, and copying files to result
   - Building individual packages
   - Running tests, either once or on file changes
 

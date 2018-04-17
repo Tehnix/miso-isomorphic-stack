@@ -3,8 +3,6 @@ _package-lib: !include "../package-lib.yaml"
 name: common
 version: '0.1.0.0'
 <<: *maintainer
-extra-source-files:
-- ChangeLog.md
 
 default-extensions: *app-default-extensions-8-0
 
