@@ -28,6 +28,36 @@
         "(cd .. && stack --stack-yaml=frontend/stack.yaml test frontend --fast --haddock-deps --file-watch)",
       "isBackground": true,
       "problemMatcher": []
+    },
+
+    //--------------------- Docker ----------------------------
+    {
+      // Build the frontend
+      "label": "Docker: Build Frontend",
+      "type": "shell",
+      "command":
+        "(cd .. && docker run -v $(pwd):/src -it ghcjs:lts-9.21 stack --stack-yaml=frontend/stack.yaml build --fast && docker commit $(docker ps -l -q) ghcjs:lts-9.21)",
+      "problemMatcher": []
+    },
+    //--------------------- Test Tasks -----------------------------
+    {
+      // Test the frontend.
+      "label": "Docker: Test Frontend",
+      "type": "shell",
+      "command":
+        "(cd .. && docker run -v $(pwd):/src -it ghcjs:lts-9.21 stack --stack-yaml=frontend/stack.yaml test frontend --fast && docker commit $(docker ps -l -q) ghcjs:lts-9.21)",
+      "problemMatcher": []
+    },
+    //--------------------- Watcher Tasks --------------------------
+    {
+      // Retest the frontend on file changes.
+      "label": "Docker: Watch Test Frontend",
+      "type": "shell",
+      "command":
+        "(cd .. && docker run -v $(pwd):/src -it ghcjs:lts-9.21 stack --stack-yaml=frontend/stack.yaml test frontend --fast --haddock-deps --file-watch && docker commit $(docker ps -l -q) ghcjs:lts-9.21)",
+      "isBackground": true,
+      "problemMatcher": []
     }
+  ]
   ]
 }

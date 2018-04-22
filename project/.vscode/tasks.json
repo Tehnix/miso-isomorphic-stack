@@ -121,6 +121,87 @@
             "^Type help for available commands\\. Press enter to force a rebuild\\.$"
         }
       }
+    },
+
+    // All the commands, replicated to use Docker
+    {
+      "label": "Docker: Rebuild/Copy/Launch Everything!",
+      // "type": "shell",
+      // "command":
+      //   "(cd .. && stack --stack-yaml=backend/stack.yaml build --fast --file-watch & stack --stack-yaml=frontend/stack.yaml build --fast --file-watch & ./project/rebuild.sh & ./project/runner.sh bin/server)",
+      "dependsOn": [
+        "Relaunch Server & Copy Build Files on Change",
+        "Watch Test Backend",
+        "Docker: Watch Build Frontend with Problem Matcher"
+      ],
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Docker: Build Project",
+      "type": "shell",
+      "command": "(cd .. && ./stack-build-docker.sh)",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Docker: Build Project and Launch Server",
+      "type": "shell",
+      "command": "(cd .. && ./stack-build-docker.sh && cd result && bin/server)",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+
+    // These are moved here, to be accessible by the dependsOn of "Docker: Rebuild/Copy/Launch Everything!".
+    {
+      // Retest the frontend on file changes.
+      "label": "Docker: Watch Build Frontend with Problem Matcher",
+      "type": "shell",
+      "command":
+        "(cd .. && docker run -v $(pwd):/src -it ghcjs:lts-9.21 stack --stack-yaml=frontend/stack.yaml build --fast --file-watch && docker commit $(docker ps -l -q) ghcjs:lts-9.21)",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "haskell",
+        "fileLocation": "absolute",
+        "pattern": [
+          {
+            // https://regex101.com/r/czYsOg/2
+            "regexp":
+              "^(    )?(\\/.*\\.hs):([0-9]*):([0-9]*): (warning|error):( \\[-W([a-zA-Z\\\\-]*)\\])?",
+            "file": 2,
+            "line": 3,
+            "column": 4,
+            "severity": 5,
+            "code": 6
+          },
+          {
+            // https://regex101.com/r/pheGQR/3
+            "regexp":
+              "^    ((?!\\/|Preprocessing|  \\/)[a-zA-Z0-9 <|>&@~_^?%=+#‘\\.’,:()\\[\\]•\\/\\-\\\"'\\x60$\\*{}]*)",
+            "message": 1,
+            "loop": true
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern":
+            "^Ignoring that the GHCJS boot package \"aeson\" has a different version, [0-9]\\.[0-9]\\.[0-9]\\.[0-9], than the resolver's wanted version, [0-9]\\.[0-9]\\.[0-9]\\.[0-9]$",
+          "endsPattern":
+            "^Type help for available commands\\. Press enter to force a rebuild\\.$"
+        }
+      }
     }
   ]
 }

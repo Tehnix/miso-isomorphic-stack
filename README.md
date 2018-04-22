@@ -6,11 +6,11 @@ This is an expansion of the [SPA isomorphic example](https://github.com/FPtje/mi
 __Get Started__
 
 ```bash
-$ ./start-build.sh
+$ ./stack-build.sh # or ./stack-build-docker.sh
 $ cd result && bin/server
 ```
 
-That's all you need to do. The rest of this README is for a deeper dive into the development setup, code structure and more.
+That's all you need to do. The rest of this README is for a deeper dive into the development setup, code structure and more. If you don't want to spend time building GHCJS, you can use `./stack-build-docker.sh` instead.
 
 <a href="https://user-images.githubusercontent.com/1189998/38898963-c7f68ecc-4296-11e8-86d7-e1cf740fe101.png" target="_blank">
   <img width="1792" alt="The backend code (left), shared code (middle) and frontend code (right)" title="The backend code (left), shared code (middle) and frontend code (right)" src="https://user-images.githubusercontent.com/1189998/38898963-c7f68ecc-4296-11e8-86d7-e1cf740fe101.png">
@@ -29,6 +29,7 @@ That's all you need to do. The rest of this README is for a deeper dive into the
     - [Backend and Common](#backend-and-common)
     - [Frontend](#frontend-1)
   - [Tasks](#tasks)
+  - [Using Docker](#using-docker)
   - [Without VSCode](#without-vscode)
 - [Miscellaneuous](#miscellaneuous)
     - [Setting up HIE](#setting-up-hie)
@@ -159,6 +160,30 @@ You often just want to run `Rebuild/Copy/Launch Everything!`, which will start t
 | `Test Common` | `stack --stack-yaml=common/stack.yaml test --fast` | Runs tests for the frontend | `F6` task menu |
 
 They all run in the correct directory. You can configure these in `backend/.vscode/tasks.json`, `common/.vscode/tasks.json` and `frontend/.vscode/tasks.json`.
+
+### Using Docker
+If you don't want to waste time building GHCJS, then you can use the `Dockerfile` to build the frontend.
+
+First build the image,
+
+```bash
+$ docker build -t ghcjs:lts-9.21 .
+Sending build context to Docker daemon    626MB
+Step 1/4 : FROM tehnix/ghcjs-docker:lts-9.21
+...
+ ---> 6ef295b59aaf
+Successfully built 6ef295b59aaf
+```
+
+then, to build the project, run,
+
+```bash
+$ docker run -v `pwd`:/src ghcjs:lts-9.21 stack build --stack-yaml=frontend/stack.yaml
+```
+
+One thing to note is that you have to commit your image afterwards, to persist the build. Something like `docker commit $(docker ps -l -q) ghcjs:lts-9.21`
+
+This is all done automatically, if you use `./stack-build-docker.sh`.
 
 ### Without VSCode
 There are four main pieces of this that I would recommend running in your terminal (each in their own),
