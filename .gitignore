@@ -25,3 +25,4 @@ result
 project/test-output.log
 .stack-docker
 .stack-work-docker
+.DS_Store
