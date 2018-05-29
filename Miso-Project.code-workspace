@@ -27,6 +27,7 @@
 			"**/*.cabal": true,
 			"**/*.hspec-failures": true
 		},
+		"git.ignoreLimitWarning": true,
 	},
 	"extensions": {
 		"recommendations": [

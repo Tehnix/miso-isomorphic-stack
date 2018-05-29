@@ -23,3 +23,5 @@ result
 **/.hspec-failures
 **/*.cabal
 project/test-output.log
+.stack-docker
+.stack-work-docker

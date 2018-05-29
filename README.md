@@ -175,15 +175,19 @@ Step 1/4 : FROM tehnix/ghcjs-docker:lts-9.21
 Successfully built 6ef295b59aaf
 ```
 
-then, to build the project, run,
+Next we need to copy the stack global root folder out into the project directory, so that we don't loose our build progress after each docker run (alternatively we would have to commit the file every time),
 
 ```bash
-$ docker run -v `pwd`:/src ghcjs:lts-9.21 stack build --stack-yaml=frontend/stack.yaml
+$ docker run -v $(pwd):/src -it ghcjs:lts-9.21 cp -R /root/.stack /src/.stack-docker
 ```
 
-One thing to note is that you have to commit your image afterwards, to persist the build. Something like `docker commit $(docker ps -l -q) ghcjs:lts-9.21`
+Then, to build the project, run,
 
-This is all done automatically, if you use `./stack-build-docker.sh`.
+```bash
+$ docker run -v $(pwd):/src -it ghcjs:lts-9.21 stack --stack-root /src/.stack-docker --stack-yaml=frontend/stack.yaml build
+```
+
+And your project should build the frontend. This is all done automatically, if you use `./stack-build-docker.sh`.
 
 ### Without VSCode
 There are four main pieces of this that I would recommend running in your terminal (each in their own),
