@@ -4,7 +4,7 @@ packages:
 - ../common
 
 extra-deps:
-  - miso-0.20.0.0
+  - miso-0.21.0.0
   # Pin Aeson to the version the frontend uses.
   - aeson-1.1.2.0
   # Settle on a more recent version of Servant with the frontend.

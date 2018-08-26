@@ -20,7 +20,7 @@ packages:
 
 allow-newer: true
 extra-deps:
-  - miso-0.20.0.0
+  - miso-0.21.0.0
   # Settle on a more recent version of Servant with the backend.
   # NOTE: We are using <0.13 because later versions bumped the Aeson dependency.
   - servant-0.12.1
