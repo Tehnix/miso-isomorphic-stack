@@ -46,7 +46,7 @@ This example focuses on:
 - Only needing stack, instead of nix (GHCJS is full of nix, so nice with an alternative).
 - Make it play nicely with editor tooling such as HIE.
 - Use [hpack](https://github.com/sol/hpack) to generate `.cabal` files, keeping common settings in `package-lib.yaml`.
-- Using the most current version of Miso (at the time of writing, version _0.21.0_).
+- Using the most current version of Miso (at the time of writing, version _0.21.1.0_).
 
 Additionally it sets up a nice development environment for [VSCode](https://code.visualstudio.com) (although it [works fine without](#without-vscode)):
 - Linting, autocomplete, code hints, formatting, etc via HIE (check out [how to set it up](#setting-up-hie))
