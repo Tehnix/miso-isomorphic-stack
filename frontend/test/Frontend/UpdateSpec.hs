@@ -7,7 +7,9 @@ import Frontend.Update (updateModel)
 
 spec :: Spec
 spec = do
-  describe "Just a blank test" $
+  describe "Just a blank test"
+    $
     -- TODO: Test `updateModel` or similar.
-    it "just works..." $ do
-      "Not implemented yet" `shouldBe` "Not implemented yet"
+      it "just works..."
+    $ do
+        "Not implemented yet" `shouldBe` "Not implemented yet"

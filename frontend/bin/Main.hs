@@ -8,13 +8,12 @@ import qualified Common.View as Common
 import qualified Frontend.Update as Frontend
 
 main :: IO ()
-main =
-  Miso.miso $ \currentURI -> App
-    { initialAction = Common.NoOp
-    , model = Common.initialModel currentURI
-    , update = Miso.fromTransition . Frontend.updateModel
-    , view = Common.viewModel
-    , events = Miso.defaultEvents
-    , subs = [Miso.uriSub Common.HandleURI]
-    , mountPoint = Nothing
-    }
+main = Miso.miso $ \currentURI -> App
+  { initialAction = Common.NoOp
+  , model         = Common.initialModel currentURI
+  , update        = Miso.fromTransition . Frontend.updateModel
+  , view          = Common.viewModel
+  , events        = Miso.defaultEvents
+  , subs          = [Miso.uriSub Common.HandleURI]
+  , mountPoint    = Nothing
+  }

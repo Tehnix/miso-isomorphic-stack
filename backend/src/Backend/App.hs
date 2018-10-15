@@ -36,8 +36,8 @@ app = Servant.serve
 -- Servant.Server (ToServerRoutes Common.Flipped HtmlPage Common.Action)
 -- Renders the /flipped page.
   flippedServer :: Servant.Handler (HtmlPage (View Common.Action))
-  flippedServer = pure $ HtmlPage $ Common.viewModel $ Common.initialModel
-    Common.flippedLink
+  flippedServer =
+    pure $ HtmlPage $ Common.viewModel $ Common.initialModel Common.flippedLink
 -- The 404 page is a Wai application because the endpoint is Raw.
 -- It just renders the page404View and sends it to the client.
   page404 :: Wai.Application
