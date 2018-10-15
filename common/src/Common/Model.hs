@@ -15,7 +15,7 @@ makeLenses ''Model
 
 -- | Set up the initial model/state.
 initialModel :: Servant.URI -> Model
-initialModel initialUri = Model {_uri = initialUri, _counterValue = 0}
+initialModel initialUri = Model { _uri = initialUri, _counterValue = 0 }
 
 data Action
   = NoOp -- ^ Empty/No operation.

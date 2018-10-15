@@ -1,6 +1,7 @@
 module Backend.App
   ( app
-  ) where
+  )
+where
 
 import Data.Proxy
 import qualified Lucid as L
@@ -17,35 +18,34 @@ import qualified Common.Routes as Common
 import qualified Common.View as Common
 
 app :: Wai.Application
-app =
-  Servant.serve
-    (Proxy :: Proxy ServerAPI)
-    (static :<|> serverHandlers :<|> Servant.Tagged page404)
-  where
-    static :: Servant.Server StaticAPI
-    static = Servant.serveDirectoryFileServer "static"
-    serverHandlers :: Servant.Server ServerRoutes
-    serverHandlers = homeServer :<|> flippedServer
-  -- Alternative type:
-  -- Servant.Server (ToServerRoutes Common.Home HtmlPage Common.Action)
-  -- Handles the route for the home page, rendering Common.homeView.
-    homeServer :: Servant.Handler (HtmlPage (View Common.Action))
-    homeServer =
-      pure $ HtmlPage $ Common.viewModel $ Common.initialModel Common.homeLink
-  -- Alternative type:
-  -- Servant.Server (ToServerRoutes Common.Flipped HtmlPage Common.Action)
-  -- Renders the /flipped page.
-    flippedServer :: Servant.Handler (HtmlPage (View Common.Action))
-    flippedServer =
-      pure $
-      HtmlPage $ Common.viewModel $ Common.initialModel Common.flippedLink
-  -- The 404 page is a Wai application because the endpoint is Raw.
-  -- It just renders the page404View and sends it to the client.
-    page404 :: Wai.Application
-    page404 _ respond =
-      respond $
-      Wai.responseLBS HTTP.status404 [("Content-Type", "text/html")] $
-      L.renderBS $ L.toHtml Common.page404View
+app = Servant.serve
+  (Proxy :: Proxy ServerAPI)
+  (static :<|> serverHandlers :<|> Servant.Tagged page404)
+ where
+  static :: Servant.Server StaticAPI
+  static = Servant.serveDirectoryFileServer "static"
+  serverHandlers :: Servant.Server ServerRoutes
+  serverHandlers = homeServer :<|> flippedServer
+-- Alternative type:
+-- Servant.Server (ToServerRoutes Common.Home HtmlPage Common.Action)
+-- Handles the route for the home page, rendering Common.homeView.
+  homeServer :: Servant.Handler (HtmlPage (View Common.Action))
+  homeServer =
+    pure $ HtmlPage $ Common.viewModel $ Common.initialModel Common.homeLink
+-- Alternative type:
+-- Servant.Server (ToServerRoutes Common.Flipped HtmlPage Common.Action)
+-- Renders the /flipped page.
+  flippedServer :: Servant.Handler (HtmlPage (View Common.Action))
+  flippedServer = pure $ HtmlPage $ Common.viewModel $ Common.initialModel
+    Common.flippedLink
+-- The 404 page is a Wai application because the endpoint is Raw.
+-- It just renders the page404View and sends it to the client.
+  page404 :: Wai.Application
+  page404 _ respond =
+    respond
+      $ Wai.responseLBS HTTP.status404 [("Content-Type", "text/html")]
+      $ L.renderBS
+      $ L.toHtml Common.page404View
 
 -- | Represents the top level Html code. Its value represents the body of the
 -- page.

@@ -12,6 +12,6 @@ main :: IO ()
 main = do
   IO.hPutStrLn IO.stderr "Running on port http://127.0.0.1:3003 ..."
   Wai.run 3003 $ Wai.logStdout $ compress app
-  where
-    compress :: Wai.Middleware
-    compress = Wai.gzip Wai.def {Wai.gzipFiles = Wai.GzipCompress}
+ where
+  compress :: Wai.Middleware
+  compress = Wai.gzip Wai.def { Wai.gzipFiles = Wai.GzipCompress }

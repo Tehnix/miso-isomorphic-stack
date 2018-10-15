@@ -8,25 +8,18 @@ setup-info:
         url: https://github.com/matchwood/ghcjs-stack-dist/raw/master/ghcjs-0.2.1.9009021.tar.gz
         sha1: b1740c3c99e5039ac306702894cd6e58283f4d31
 
-# docker:
-#     enable: true
-#     repo: "tehnix/ghcjs-docker" # It will automatically add :lts-x.xx
-#     auto-pull: true
-# system-ghc: true
-
 packages:
-- '.'
-- ../common
+  - "."
+  - ../common
 
 flags:
   miso:
-    jsaddle: true
+    jsaddle: false
 
 allow-newer: true
 extra-deps:
-  - miso-0.21.1.0
+  - miso-0.21.2.0
   # Settle on a more recent version of Servant with the backend.
   # NOTE: We are using <0.13 because later versions bumped the Aeson dependency.
   - servant-0.12.1
-  - jsaddle-warp-0.9.5.0
   - cabal-doctest-1.0.6

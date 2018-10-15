@@ -1,7 +1,7 @@
 _package-lib: !include "../package-lib.yaml"
 
 name: frontend
-version: '0.1.0.0'
+version: "0.1.0.0"
 <<: *maintainer
 
 default-extensions: *app-default-extensions-8-0
@@ -12,24 +12,23 @@ executables:
     source-dirs: bin
     ghc-options: *full-ghc-options
     dependencies:
-    - base
-    - frontend
-    - common
-    - jsaddle-warp
-    - miso
+      - base
+      - frontend
+      - common
+      - miso
 
 library:
   source-dirs: src
   ghc-options: *warn-ghc-options
   dependencies:
-  - base
-  - common
-  - miso
-  - aeson
-  - lens
-  - containers
-  - network-uri
-  - servant
+    - base
+    - common
+    - miso
+    - aeson
+    - lens
+    - containers
+    - network-uri
+    - servant
 
 tests:
   spec:
@@ -37,8 +36,8 @@ tests:
     source-dirs: test
     ghc-options: *full-ghc-options
     dependencies:
-    - base
-    - frontend
-    - common
-    - hspec
-    - aeson
+      - base
+      - frontend
+      - common
+      - hspec
+      - aeson

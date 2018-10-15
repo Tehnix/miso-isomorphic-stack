@@ -1,41 +1,41 @@
 {
-	"folders": [
-		{
-			"path": "backend"
-		},
-		{
-			"path": "common"
-		},
-		{
-			"path": "frontend"
-		},
-		{
-			"path": "project"
-		}
-	],
-	"settings": {
-		"editor.formatOnSave": true,
-		"files.exclude": {
-			"**/.git": true,
-			"**/.svn": true,
-			"**/.hg": true,
-			"**/CVS": true,
-			"**/.DS_Store": true,
-			".vscode": true,
-			"**/Setup.hs": true,
-			"LICENSE": true,
-			"**/*.cabal": true,
-			"**/*.hspec-failures": true
-		},
-		"git.ignoreLimitWarning": true,
-	},
-	"extensions": {
-		"recommendations": [
-			"alanz.vscode-hie-server",
-			"ndmitchell.haskell-ghcid",
-			"justusadam.language-haskell",
-			"jcanero.hoogle-vscode",
-			"phoityne.phoityne-vscode"
-		]
-	}
+  "folders": [
+    {
+      "path": "backend"
+    },
+    {
+      "path": "common"
+    },
+    {
+      "path": "frontend"
+    },
+    {
+      "path": "project"
+    }
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      ".vscode": true,
+      "**/Setup.hs": true,
+      "LICENSE": true,
+      "**/*.cabal": true,
+      "**/*.hspec-failures": true
+    },
+    "git.ignoreLimitWarning": true
+  },
+  "extensions": {
+    "recommendations": [
+      "alanz.vscode-hie-server",
+      "ndmitchell.haskell-ghcid",
+      "justusadam.language-haskell",
+      "jcanero.hoogle-vscode",
+      "phoityne.phoityne-vscode"
+    ]
+  }
 }

@@ -19,12 +19,10 @@ type Flipped = "flipped" :> View Action
 
 -- Servant.URI that points to the home route
 homeLink :: Servant.URI
-homeLink =
-  Servant.linkURI $
-  Servant.safeLink (Proxy :: Proxy ViewRoutes) (Proxy :: Proxy Home)
+homeLink = Servant.linkURI
+  $ Servant.safeLink (Proxy :: Proxy ViewRoutes) (Proxy :: Proxy Home)
 
 -- Servant.URI that points to the flipped route
 flippedLink :: Servant.URI
-flippedLink =
-  Servant.linkURI $
-  Servant.safeLink (Proxy :: Proxy ViewRoutes) (Proxy :: Proxy Flipped)
+flippedLink = Servant.linkURI
+  $ Servant.safeLink (Proxy :: Proxy ViewRoutes) (Proxy :: Proxy Flipped)

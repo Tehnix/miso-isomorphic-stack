@@ -7,7 +7,7 @@ __Get Started__
 
 ```bash
 $ ./stack-build.sh # or ./stack-build-docker.sh
-$ cd result && bin/server
+$ (cd result && bin/server)
 ```
 
 That's all you need to do. The rest of this README is for a deeper dive into the development setup, code structure and more. If you don't want to spend time building GHCJS, you can use `./stack-build-docker.sh` instead.
@@ -46,7 +46,7 @@ This example focuses on:
 - Only needing stack, instead of nix (GHCJS is full of nix, so nice with an alternative).
 - Make it play nicely with editor tooling such as HIE.
 - Use [hpack](https://github.com/sol/hpack) to generate `.cabal` files, keeping common settings in `package-lib.yaml`.
-- Using the most current version of Miso (at the time of writing, version _0.21.1.0_).
+- Using the most current version of Miso (at the time of writing, version _0.21.2.0_).
 
 Additionally it sets up a nice development environment for [VSCode](https://code.visualstudio.com) (although it [works fine without](#without-vscode)):
 - Linting, autocomplete, code hints, formatting, etc via HIE (check out [how to set it up](#setting-up-hie))

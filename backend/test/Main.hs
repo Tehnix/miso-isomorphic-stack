@@ -5,4 +5,4 @@ import Test.Hspec.Formatters
 import Test.Hspec.Runner
 
 main :: IO ()
-main = hspecWith defaultConfig {configFormatter = Just progress} Spec.spec
+main = hspecWith defaultConfig { configFormatter = Just progress } Spec.spec

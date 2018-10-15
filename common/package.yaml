@@ -1,7 +1,7 @@
 _package-lib: !include "../package-lib.yaml"
 
 name: common
-version: '0.1.0.0'
+version: "0.1.0.0"
 <<: *maintainer
 
 default-extensions: *app-default-extensions-8-0
@@ -10,13 +10,13 @@ library:
   source-dirs: src
   ghc-options: *warn-ghc-options
   dependencies:
-  - base
-  - miso
-  - aeson
-  - lens
-  - containers
-  - network-uri
-  - servant
+    - base
+    - miso
+    - aeson
+    - lens
+    - containers
+    - network-uri
+    - servant
 
 tests:
   spec:
@@ -24,7 +24,7 @@ tests:
     source-dirs: test
     ghc-options: *full-ghc-options
     dependencies:
-    - base
-    - common
-    - hspec
-    - servant
+      - base
+      - common
+      - hspec
+      - servant
