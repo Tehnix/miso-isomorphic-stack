@@ -1,6 +1,8 @@
 Miso Isomorphic Example using Stack
 ===
 
+**💡 NOTE: Since stack has dropped support for GHCJS, I would recommend checking out the [Nix-based isomorphic Miso example](https://github.com/FPtje/miso-isomorphic-example) for an updated example.**
+
 This is an expansion of the [SPA isomorphic example](https://github.com/FPtje/miso-isomorphic-example), which is a minimal example of [Miso](https://github.com/dmjio/miso)'s isomorphic features.
 
 __Get Started__
